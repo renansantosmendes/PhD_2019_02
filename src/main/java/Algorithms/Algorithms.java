@@ -305,26 +305,46 @@ public class Algorithms {
 //            objectives[0] = S.getTotalDistance();
 //            objectives[1] = S.getTotalDeliveryDelay();
 //            objectives[2] = S.getTotalRouteTimeChargeBanlance();
-//            objectives[3] = S.getNumberOfNonAttendedRequests();
+
 //            objectives[4] = S.getNumberOfVehicles();
 //            objectives[5] = S.getTotalTravelTime();
 //            objectives[6] = S.getTotalWaintingTime();
 //            objectives[7] = S.getDeliveryTimeWindowAntecipation();
 //            objectives[8] = S.getTotalOccupationRate();
 
+//            objectives[3] = S.getNumberOfNonAttendedRequests();
+
             objectives = new double[S.getAggregatedObjectives().length];
-            objectives[0] = S.getTotalDistance();
-            objectives[1] = S.getTotalDeliveryDelay();
-            objectives[2] = S.getTotalRouteTimeChargeBanlance();
-            objectives[3] = S.getNumberOfVehicles();
-            objectives[4] = S.getTotalTravelTime();
-            objectives[5] = S.getTotalWaintingTime();
-            objectives[6] = S.getDeliveryTimeWindowAntecipation();
-            objectives[7] = S.getTotalOccupationRate();
+            objectives[0] = S.getTotalDistance();//1
+            objectives[1] = S.getTotalDeliveryDelay();//2
+            objectives[2] = S.getTotalRouteTimeChargeBanlance();//3
+            objectives[3] = S.getNumberOfVehicles();//4
+            objectives[4] = S.getTotalTravelTime();//5
+            objectives[5] = S.getTotalWaintingTime();//6
+            objectives[6] = S.getDeliveryTimeWindowAntecipation();//7
+            objectives[7] = S.getTotalOccupationRate();//8
         } else {
 
             objectives = new double[S.getAggregatedObjectives().length];
+            //agregação que a Beth sugeriu em R6
+            
+            objectives[0] = parameters.get(7)*S.getTotalOccupationRate() + parameters.get(2)*S.getTotalRouteTimeChargeBanlance();
+            objectives[1] = parameters.get(1)*S.getTotalDeliveryDelay() + parameters.get(4)*S.getTotalTravelTime();
+            objectives[2] = parameters.get(0)*S.getTotalDistance();
+            objectives[3] = parameters.get(3)*S.getNumberOfVehicles();
+            objectives[4] = parameters.get(5)*S.getTotalWaintingTime();
+            objectives[5] = parameters.get(6)*S.getDeliveryTimeWindowAntecipation();
+            
+            
+            
+        //objectives[1] = parameters.get(2) * S.getTotalRouteTimeChargeBanlance()
+//                    + parameters.get(8) * S.getTotalOccupationRate();
 
+//            objectives[2] = parameters.get(0) * S.getTotalDistance()
+//                    + parameters.get(4) * S.getNumberOfVehicles()
+//                    + parameters.get(6) * S.getTotalWaintingTime()
+//                    + parameters.get(7) * S.getDeliveryTimeWindowAntecipation();
+            
             //redução abaixo foi feita usando DBSCAN
             //primeira tentativa
             //array([-1, -1,  0,  1, -1,  0, -1,  1])
@@ -342,24 +362,33 @@ public class Algorithms {
             //array([-1,  0,  1, -1,  0, -1, -1,  1])
             //        0   1   2   4   5   6   7   8 índice
             //        1   2   3   4   5   6   7   8 numero da função
-            objectives[0] = parameters.get(1) * S.getTotalDeliveryDelay()
-                    + parameters.get(5) * S.getTotalTravelTime();
-
-            objectives[1] = parameters.get(2) * S.getTotalRouteTimeChargeBanlance()
-                    + parameters.get(8) * S.getTotalOccupationRate();
+            
+            
+//            objectives[0] = parameters.get(4) * S.getNumberOfVehicles();
+//            
+//            objectives[1] = parameters.get(1) * S.getTotalDeliveryDelay();
+//
+//            objectives[2] = parameters.get(8) * S.getTotalOccupationRate();
+            
+//            objectives[0] = parameters.get(1) * S.getTotalDeliveryDelay()
+//                    + parameters.get(5) * S.getTotalTravelTime();
+//
+//            objectives[1] = parameters.get(2) * S.getTotalRouteTimeChargeBanlance()
+//                    + parameters.get(8) * S.getTotalOccupationRate();
 
 //            objectives[2] = parameters.get(0) * S.getTotalDistance()
 //                    + parameters.get(4) * S.getNumberOfVehicles()
 //                    + parameters.get(6) * S.getTotalWaintingTime()
 //                    + parameters.get(7) * S.getDeliveryTimeWindowAntecipation();
             //----- novo experimento - anterior estava errado
-            objectives[2] = parameters.get(0) * S.getTotalDistance();
-
-            objectives[3] = parameters.get(4) * S.getNumberOfVehicles();
-
-            objectives[4] = parameters.get(6) * S.getTotalWaintingTime();
-
-            objectives[5] = parameters.get(7) * S.getDeliveryTimeWindowAntecipation();
+            
+//            objectives[2] = parameters.get(0) * S.getTotalDistance();
+//
+//            objectives[3] = parameters.get(4) * S.getNumberOfVehicles();
+//
+//            objectives[4] = parameters.get(6) * S.getTotalWaintingTime();
+//
+//            objectives[5] = parameters.get(7) * S.getDeliveryTimeWindowAntecipation();
 
             //redução abaixo é usando o cluster hierárquico com tau de kendall
 //            objectives[0] = parameters.get(1) * S.getTotalDeliveryDelay()
